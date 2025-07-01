@@ -384,6 +384,7 @@ pub fn main() !void {
     var show_help = false;
     var test_visual_framework = false;
     var launch_sixth_sense = false;
+    var run_all_flags = false;
     var sixth_sense_args = std.ArrayList([]const u8).init(allocator);
     defer sixth_sense_args.deinit();
 
@@ -408,6 +409,8 @@ pub fn main() !void {
                 i += 1;
             }
             break;
+        } else if (std.mem.eql(u8, arg, "--all") or std.mem.eql(u8, arg, "-a")) {
+            run_all_flags = true;
         } else if (std.mem.eql(u8, arg, "--help") or std.mem.eql(u8, arg, "-h")) {
             show_help = true;
         }
@@ -425,6 +428,7 @@ pub fn main() !void {
         try stdout.print("  -p, --framework   Test visual processing framework\n", .{});
         try stdout.print("  -6, --sixth-sense Launch Sixth Sense AR application\n", .{});
         try stdout.print("      --sixth       (alias for --sixth-sense)\n", .{});
+        try stdout.print("  -a, --all         Run all flags (visual, network, sensory, framework, sixth-sense)\n", .{});
         try stdout.print("  -h, --help        Show this help message\n\n", .{});
         try stdout.print("Examples:\n", .{});
         try stdout.print("  zig run main.zig                    # Basic text output\n", .{});
@@ -433,12 +437,31 @@ pub fn main() !void {
         try stdout.print("  zig run main.zig -- --sensory       # Show sensory display\n", .{});
         try stdout.print("  zig run main.zig -- --sixth-sense   # Launch Sixth Sense AR\n", .{});
         try stdout.print("  zig run main.zig -- -6 --monitor    # Sixth Sense with monitoring\n", .{});
-        try stdout.print("  zig run main.zig -- --visual --network --sensory # All modes\n\n", .{});
+        try stdout.print("  zig run main.zig -- --all           # Run all available flags\n", .{});
+        try stdout.print("  zig run main.zig -- --visual --network --sensory # Manual all modes\n\n", .{});
         try stdout.print("Sixth Sense Options (use after --sixth-sense):\n", .{});
         try stdout.print("  --framework   Show detailed visual processing framework\n", .{});
         try stdout.print("  --monitor     Start real-time monitoring simulation\n", .{});
         try stdout.print("  --help        Show Sixth Sense help\n\n", .{});
         return;
+    }
+
+    // Handle --all flag: enable all other flags
+    if (run_all_flags) {
+        visual_mode = true;
+        show_network = true;
+        show_sensory = true;
+        test_visual_framework = true;
+        launch_sixth_sense = true;
+        
+        try stdout.print("\n🎯 RUNNING ALL FLAGS MODE\n", .{});
+        try stdout.print("═══════════════════════════\n", .{});
+        try stdout.print("🔹 Visual Mode: ENABLED\n", .{});
+        try stdout.print("🔹 Network Mode: ENABLED\n", .{});
+        try stdout.print("🔹 Sensory Mode: ENABLED\n", .{});
+        try stdout.print("🔹 Framework Test: ENABLED\n", .{});
+        try stdout.print("🔹 Sixth Sense: ENABLED\n", .{});
+        try stdout.print("═══════════════════════════\n\n", .{});
     }
 
     // Launch Sixth Sense application if requested
