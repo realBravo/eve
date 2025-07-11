@@ -1,0 +1,35 @@
+{
+  "cell_001": {
+    "id": "cell_001",
+    "type": "neuron", // neuron, glial, receptor, etc.
+    "state": {
+      "mode": "active", // active, resting, inhibited, depolarized, refractory
+      "phase": "firing", // substate to simulate cycles
+      "last_activation": 1720700400 // timestamp or simulation step
+    },
+    "region": "V1", // brain region (e.g., V1, PFC, S1, MGN)
+    "system": "visual", // visual, auditory, somatic, immune
+    "function": "orientation_detection", // high-level role
+    "membrane_potential": -65, // in mV
+    "threshold": -50, // activation threshold
+    "plastic": true, // can learn/adapt?
+    "connections": {
+      "cell_002": 0.84, // connection weight (synapse strength)
+      "cell_005": -0.33
+    },
+    "activation_log": [-70, -68, -65, -72], // history of membrane potentials
+    "firing_count": 3, // track firing activity
+    "protein": {
+      "name": "Cyclin dependent kinase 2",
+      "sequence": "MENF@KVEKIGEGTYGVVYKA...KPVPHLRI",
+      "function": "cell_cycle_regulation",
+      "modulators": ["BDNF", "CREB"] // optional modulatory proteins for plasticity
+    },
+    "metabolic": {
+      "oxygen_usage": 0.92,
+      "glucose_usage": 1.1,
+      "stress_level": 0.25
+    },
+    "tags": ["visual_map", "excitatory", "primary_cortex"]
+  }
+}
