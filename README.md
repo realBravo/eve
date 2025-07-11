@@ -21,6 +21,9 @@
 # Basic text output
 zig run main.zig
 
+# Run all flag
+zig run main.zig -- --all
+
 # Pretty visual cards with emojis and formatting
 zig run main.zig -- --visual
 
